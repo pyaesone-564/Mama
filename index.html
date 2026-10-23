@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary မမ ❤️</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Padauk, Great Vibes, Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --primary-rose: #ff4d6d;
+      --deep-burgundy: #14050c;
+    }
+    body {
+      font-family: 'Padauk', 'Outfit', sans-serif;
+      background-color: #0d0208;
+      color: #ffe5ec;
+      overflow-x: hidden;
+    }
+    .font-cursive {
+      font-family: 'Great Vibes', cursive;
+    }
+    /* Glassmorphism Card styling */
+    .glass-card {
+      background: rgba(30, 8, 20, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 117, 143, 0.25);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    }
+    .glass-card-hover {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 77, 109, 0.5);
+      box-shadow: 0 16px 36px rgba(255, 77, 109, 0.25);
+    }
+    /* Glow text */
+    .glow-rose {
+      text-shadow: 0 0 15px rgba(255, 77, 109, 0.7), 0 0 30px rgba(255, 77, 109, 0.4);
+    }
+    /* Background Canvas */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Interactive Envelope Styles */
+    .envelope-wrapper {
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .envelope-wrapper:hover {
+      transform: scale(1.02);
+    }
+    /* Polaroid Shake & Hover */
+    .polaroid-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+    .polaroid-card:hover {
+      transform: scale(1.04) rotate(0deg) !important;
+      z-index: 20;
+      box-shadow: 0 20px 40px rgba(255, 77, 109, 0.35);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0208;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #590d22;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff4d6d;
+    }
+    /* Pulse heart animation */
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .animate-heartbeat {
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen selection:bg-pink-500 selection:text-white pb-24">
+
+  <!-- Interactive Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Floating Audio Melody Controls -->
+  <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
+    <button id="musicToggleBtn" onclick="toggleAudioMelody()" class="glass-card flex items-center gap-2 px-4 py-2.5 rounded-full text-pink-200 hover:text-white hover:border-pink-400 transition shadow-lg">
+      <i id="musicIcon" data-lucide="volume-x" class="w-5 h-5 text-pink-400"></i>
+      <span id="musicText" class="text-xs tracking-wider uppercase font-semibold">Play Melody</span>
+    </button>
+  </div>
+
+  <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-12 md:pt-16">
+
+    <!-- HERO HEADER -->
+    <header class="text-center space-y-4 mb-14">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-pink-500/30 text-pink-300 text-xs sm:text-sm mb-2 shadow-inner">
+        <span class="inline-block w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+        <span>၂၃ ဒီဇင်ဘာ ၂၀၂၅ ည ၈:၅၀ မှ စတင်ခဲ့သော ချစ်ခရီးစဉ်</span>
+      </div>
+
+      <h1 class="font-cursive text-5xl sm:text-7xl md:text-8xl text-pink-500 glow-rose tracking-wide">
+        Happy Anniversary
+      </h1>
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-normal flex items-center justify-center gap-2">
+        <span>မမအတွက် မောင့်ရင်ဖွင့် အချစ်ရတု</span>
+        <i data-lucide="heart" class="w-7 h-7 sm:w-8 sm:h-8 fill-pink-500 text-pink-500 animate-heartbeat inline-block"></i>
+      </h2>
+      <p class="text-pink-200/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed pt-2">
+        "အချိန်တွေ ဘယ်လိုပဲ ကုန်ဆုံးသွားပါစေ... မမကို ချစ်တဲ့ မောင့်နှလုံးသားကတော့ တစ်စက္ကန့်မှ အနားမယူခဲ့ပါဘူး။"
+      </p>
+    </header>
+
+    <!-- LIVE REAL-TIME TOGETHER COUNTER -->
+    <section class="mb-20">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-pink-500/30 text-center relative overflow-hidden">
+        <!-- Background light accent -->
+        <div class="absolute -top-24 -left-24 w-60 h-60 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-60 h-60 bg-rose-700/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex items-center justify-center gap-2 text-pink-400 mb-6 uppercase tracking-wider text-xs sm:text-sm font-semibold">
+          <i data-lucide="clock" class="w-4 h-4"></i>
+          <span>မမနှင့် မောင် အတူလက်တွဲခဲ့သော အချိန်ကာလ</span>
+        </div>
+
+        <!-- Counter Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto">
+          <!-- Days -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 border border-pink-500/20 shadow-md">
+            <span id="daysCount" class="block text-4xl sm:text-6xl font-extrabold text-white glow-rose">0</span>
+            <span class="text-xs sm:text-sm text-pink-300/80 font-medium tracking-wider uppercase mt-1 block">ရက်ပေါင်း (Days)</span>
+          </div>
+          <!-- Hours -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 border border-pink-500/20 shadow-md">
+            <span id="hoursCount" class="block text-4xl sm:text-6xl font-extrabold text-white glow-rose">0</span>
+            <span class="text-xs sm:text-sm text-pink-300/80 font-medium tracking-wider uppercase mt-1 block">နာရီ (Hours)</span>
+          </div>
+          <!-- Minutes -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 border border-pink-500/20 shadow-md">
+            <span id="minutesCount" class="block text-4xl sm:text-6xl font-extrabold text-white glow-rose">0</span>
+            <span class="text-xs sm:text-sm text-pink-300/80 font-medium tracking-wider uppercase mt-1 block">မိနစ် (Minutes)</span>
+          </div>
+          <!-- Seconds -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 border border-pink-500/20 shadow-md">
+            <span id="secondsCount" class="block text-4xl sm:text-6xl font-extrabold text-pink-400 glow-rose">0</span>
+            <span class="text-xs sm:text-sm text-pink-300/80 font-medium tracking-wider uppercase mt-1 block">စက္ကန့် (Seconds)</span>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-pink-300/60 mt-6 italic">
+          * စတင်ရက်စွဲ - ၂၀၂၅ ခုနှစ် ဒီဇင်ဘာလ ၂၃ ရက်၊ ည ၈:၅၀ နာရီတိတိ မှစ၍
+        </p>
+      </div>
+    </section>
+
+    <!-- PHOTO MEMORY POLAROID WALL -->
+    <section class="mb-20">
+      <div class="text-center mb-10">
+        <h3 class="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-2">
+          <span>တို့နှစ်ယောက်ရဲ့ အမှတ်တရများ နံရံ</span>
+          <i data-lucide="camera" class="w-6 h-6 text-pink-400"></i>
+        </h3>
+        <p class="text-pink-300/70 text-sm mt-1">ပုံလေးတွေကို နှိပ်ပြီး အကြီးချဲ့ကြည့်ရှုနိုင်ပါသည်</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto px-4">
+        
+        <!-- Polaroid 1: First Photo Given by Ma Ma -->
+        <div class="polaroid-card bg-white p-4 pb-6 rounded shadow-2xl transform -rotate-2 hover:rotate-0 transition duration-300" onclick="openLightbox('https://i.ibb.co/11c394Y/1000099789.jpg', 'မမ ရဲ့ပထမဆုံးပုံပေးခဲ့အမှတ်တရ ပုံလေး')">
+          <div class="w-full h-72 sm:h-80 bg-neutral-900 overflow-hidden rounded relative group">
+            <img src="https://i.ibb.co/11c394Y/1000099789.jpg" alt="မမ ရဲ့ပထမဆုံးပုံပေးခဲ့အမှတ်တရ ပုံလေး" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/600x700/2b0918/ff758f?text=Ma+Ma+Photo'">
+            <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white text-xs px-3 py-1.5 bg-pink-600/90 rounded-full flex items-center gap-1.5 shadow-md">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> နှိပ်ပြီး အကြီးချဲ့ရန်
+              </span>
+            </div>
+          </div>
+          <p class="text-gray-900 text-center font-bold text-sm sm:text-base mt-4 font-sans tracking-wide">
+            မမ ရဲ့ပထမဆုံးပုံပေးခဲ့အမှတ်တရ ပုံလေး ❤️
+          </p>
+          <span class="block text-center text-xs text-gray-500 mt-1">First Cherished Photo</span>
+        </div>
+
+        <!-- Polaroid 2: Promise Ring -->
+        <div class="polaroid-card bg-white p-4 pb-6 rounded shadow-2xl transform rotate-2 hover:rotate-0 transition duration-300" onclick="openLightbox('https://i.ibb.co/hwrwmfJ/1000099793.webp', 'မောင်တို့ အမြဲအတူတူအမှတ်ရနေမည့်လက်စွပ်လေး')">
+          <div class="w-full h-72 sm:h-80 bg-neutral-900 overflow-hidden rounded relative group">
+            <img src="https://i.ibb.co/hwrwmfJ/1000099793.webp" alt="မောင်တို့ အမြဲအတူတူအမှတ်ရနေမည့်လက်စွပ်လေး" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/600x700/2b0918/ff758f?text=Promise+Ring'">
+            <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white text-xs px-3 py-1.5 bg-pink-600/90 rounded-full flex items-center gap-1.5 shadow-md">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> နှိပ်ပြီး အကြီးချဲ့ရန်
+              </span>
+            </div>
+          </div>
+          <p class="text-gray-900 text-center font-bold text-sm sm:text-base mt-4 font-sans tracking-wide">
+            မောင်တို့ အမြဲအတူတူအမှတ်ရနေမည့်လက်စွပ်လေး 💍
+          </p>
+          <span class="block text-center text-xs text-gray-500 mt-1">Eternal Promise Ring</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LOVE LETTER ENVELOPE SECTION -->
+    <section class="mb-20 text-center">
+      <div class="max-w-md mx-auto">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">မမအတွက် မောင့်ရင်ဖွင့် အချစ်စာလွှာ</h3>
+        <p class="text-pink-300/80 text-sm mb-6">စာအိတ်လေးကို နှိပ်ပြီး ဖွင့်ဖတ်ကြည့်ပါဦး မမရေ ❤️</p>
+        
+        <!-- Interactive 3D Envelope Clicker -->
+        <div class="envelope-wrapper mx-auto w-72 h-44 sm:w-80 sm:h-48 relative transition duration-300" onclick="openLoveLetter()">
+          <div class="w-full h-full glass-card rounded-2xl border-2 border-pink-500/50 flex flex-col items-center justify-center p-6 text-center shadow-2xl relative overflow-hidden group hover:border-pink-400">
+            <div class="absolute inset-0 bg-gradient-to-tr from-pink-950/40 via-red-950/30 to-purple-950/30"></div>
+            <div class="w-16 h-16 rounded-full bg-pink-500/20 border border-pink-400/40 flex items-center justify-center mb-3 group-hover:scale-110 transition duration-300">
+              <i data-lucide="mail-open" class="w-8 h-8 text-pink-400 group-hover:text-pink-200"></i>
+            </div>
+            <span class="relative z-10 text-white font-semibold text-base sm:text-lg">စာလွှာဖတ်ရှုရန် နှိပ်ပါ</span>
+            <span class="relative z-10 text-xs text-pink-300/70 mt-1">To: ချစ်ရပါသော မမ ထံသို့</span>
+            <div class="absolute bottom-2 right-3">
+              <i data-lucide="sparkles" class="w-4 h-4 text-pink-400 animate-pulse"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REASONS WHY I LOVE YOU (CLICK-TO-REVEAL CARDS) -->
+    <section class="mb-20">
+      <div class="text-center mb-10">
+        <h3 class="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-2">
+          <span>မမကို အရမ်းချစ်ရတဲ့ အကြောင်းပြချက်များ</span>
+          <i data-lucide="sparkles" class="w-6 h-6 text-pink-400"></i>
+        </h3>
+        <p class="text-pink-300/70 text-sm mt-1">ကတ်လေးတွေကို နှိပ်ပြီး မောင့်ရင်တွင်းစကားတွေကို ဖွင့်ကြည့်ပါဦး</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="reasonsGrid">
+        <!-- Card 1 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">01</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">မမရဲ့ အပြုံးလေးတွေ</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            မမပြုံးလိုက်တဲ့ အပြုံးတစ်ချက်နဲ့တင် မောင့်ရဲ့ တစ်နေ့တာလုံး အမောတွေ ပြေပျောက်သွားရတယ်။ မမရဲ့ အပြုံးဟာ မောင့်ဘဝရဲ့ အလှဆုံး အလင်းရောင်ပါ။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">02</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">နွေးထွေးတဲ့ ဂရုစိုက်မှုများ</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            ထမင်းစားပြီးပြီလား၊ နေကောင်းလားဆိုတဲ့ စကားသံလေးကအစ မောင့်ကို ကလေးတစ်ယောက်လို သေသေချာချာ ချစ်ပေးတဲ့ မမရဲ့ ဂရုစိုက်မှုတွေကို အရမ်းမြတ်နိုးတယ်။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">03</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">နားလည်ခွင့်လွှတ်ပေးနိုင်စွမ်း</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            မောင် ဆိုးနွဲ့တဲ့အချိန်တွေ၊ အမှားလုပ်မိတဲ့ အခါတိုင်းမှာ စိတ်ရှည်လက်ရှည်နဲ့ အမြဲလမ်းပြ နားလည်ပေးခဲ့လို့ မမဟာ မောင့်အတွက် အကောင်းဆုံး လက်တွဲဖော်ပါ။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">04</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">အတူတူ ရယ်မောရတဲ့ အချိန်များ</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            ဘာမဟုတ်တာလေးတွေနဲ့ အတူတူရယ်မောခဲ့ကြတဲ့ ညဉ့်နက်နက်ဖုန်းပြောချိန်လေးတွေဟာ ဘယ်အရာနဲ့မှ မလဲနိုင်တဲ့ မောင့်ဘဝရဲ့ တန်ဖိုးအရှိဆုံး အမှတ်တရတွေပါ။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">05</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">မမရဲ့ စိတ်သဘောထား</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            လူတိုင်းအပေါ် သဘောထားကြီးပြီး စာနာတတ်တဲ့ မမရဲ့ ဖြူစင်တဲ့ စိတ်နှလုံးသားလေးကို မြင်တွေ့ရတိုင်း မမကို ရွေးချယ်ခဲ့တာ အရမ်းမှန်ကန်တယ်လို့ ဂုဏ်ယူမိပါတယ်။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer border border-pink-500/25 relative select-none" onclick="toggleReason(this)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">06</span>
+            <i data-lucide="heart" class="w-5 h-5 text-pink-500 fill-pink-500/30"></i>
+          </div>
+          <h4 class="text-base font-bold text-pink-200 mb-2">မမ ဖြစ်တည်နေပေးခြင်း</h4>
+          <p class="text-sm text-pink-100/90 leading-relaxed transition-all duration-300 blur-sm hover:blur-none select-text reason-body">
+            ဘာအကြောင်းပြချက်မှ မလိုဘဲ 'မမ' ဆိုတဲ့ လူသားလေး မောင့်ဘဝထဲမှာ ရှိနေပေးတာကိုက မောင့်ဘဝရဲ့ အကြီးမားဆုံးသော ကံကောင်းခြင်းပါပဲ။
+          </p>
+          <div class="mt-4 pt-3 border-t border-pink-500/20 flex justify-between items-center text-xs text-pink-400/70">
+            <span>နှိပ်ပြီး ဖတ်ရှုပါ ✨</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-pink-400/60 pt-8 border-t border-pink-500/20">
+      <p>Forever & Always with Ma Ma • 23.12.2025 (8:50 PM)</p>
+      <p class="mt-1">Crafted with infinite love for my beloved မမ ❤️</p>
+    </footer>
+
+  </main>
+
+  <!-- LOVE LETTER FULLSCREEN MODAL -->
+  <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+    <div class="relative w-full max-w-2xl glass-card border border-pink-400/40 rounded-3xl p-6 sm:p-10 text-white shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-500" id="letterModalContent">
+      
+      <!-- Close button -->
+      <button onclick="closeLoveLetter()" class="absolute top-5 right-5 p-2 rounded-full bg-pink-900/60 hover:bg-pink-800 text-pink-200 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center pb-4 border-b border-pink-500/20">
+        <span class="font-cursive text-4xl sm:text-5xl text-pink-500 glow-rose">My Dearest Ma Ma</span>
+        <p class="text-xs text-pink-300/80 mt-1 uppercase tracking-wider">၂၃.၁၂.၂၀၂၅ • ည ၈:၅၀ မှ အစပြုခဲ့သော ရင်တွင်းစကား</p>
+      </div>
+
+      <div class="space-y-4 text-pink-100 text-sm sm:text-base leading-relaxed py-6 text-justify sm:text-left">
+        <p>
+          ချစ်ရတဲ့ မမ...
+        </p>
+        <p>
+          ၂၀၂၅ ခုနှစ်၊ ဒီဇင်ဘာလ ၂၃ ရက်နေ့ ည ၈ နာရီ ၅၀ မိနစ်ဆိုတဲ့ အချိန်လေးဟာ မောင့်ဘဝတစ်ခုလုံးမှာ အလှပဆုံးနဲ့ အထူးခြားဆုံး အချိန်အခိုက်အတန့်လေး ဖြစ်ခဲ့ရပါတယ်။
+        </p>
+        <p>
+          မမနဲ့ စတင်လက်တွဲခွင့်ရခဲ့တဲ့ အချိန်ကစပြီး နေ့ရက်တိုင်းဟာ အရင်ကထက် ပိုပြီး အဓိပ္ပာယ်ရှိလာတယ်၊ ပိုပြီးနွေးထွေးလာခဲ့ရပါတယ်။ စိတ်ကောက်တဲ့ အခိုက်အတန့်လေးတွေ၊ သဘောထားကွဲလွဲမှုလေးတွေ ရှိခဲ့ဖူးရင်တောင် မောင့်အပေါ် အမြဲတမ်း စိတ်ရှည်သည်းခံပြီး နားလည်ခွင့်လွှတ်ပေးခဲ့တဲ့ မမကို နှလုံးသားထဲကနေ အမြဲကျေးဇူးတင်တန်ဖိုးထားရပါတယ်။
+        </p>
+        <p>
+          မမရဲ့ အပြုံးလေးတွေ၊ စကားသံလေးတွေနဲ့ နွေးထွေးတဲ့ ဂရုစိုက်မှုတွေဟာ မောင့်ဘဝအတွက် အားဆေးတစ်ခွက်ပါပဲ။ နောက်ထပ် နှစ်ပေါင်းများစွာတိုင်အောင်လည်း မမရဲ့လက်ကို မြဲမြဲတွဲထားပြီး မမရဲ့အနားမှာ အမြဲရှိနေပေးမယ့် အားကိုးရတဲ့ လက်တွဲဖော်တစ်ယောက်အဖြစ် သစ္စာရှိရှိ ချစ်သွားပါ့မယ်။
+        </p>
+        <p class="pt-2 font-bold text-pink-400">
+          Happy Anniversary ပါ မမရေ... ထာဝရ ချစ်နေပါ့မယ်ဗျာ ❤️
+        </p>
+      </div>
+
+      <div class="pt-4 border-t border-pink-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="text-xs text-pink-300/70 italic">မမကို အမြဲချစ်လျက်ရှိသော မောင်ဆီမှ</span>
+        <button onclick="triggerLoveCelebration(); closeLoveLetter();" class="px-6 py-2.5 rounded-full bg-pink-600 hover:bg-pink-500 text-white font-medium text-xs sm:text-sm transition flex items-center gap-2">
+          <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+          <span>ချစ်တယ် မမ ❤️</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL FOR POLAROID PHOTOS -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" onclick="closeLightbox()">
+    <button class="absolute top-5 right-5 p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition" onclick="closeLightbox()">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <div class="max-w-xl max-h-[80vh] flex flex-col items-center" onclick="event.stopPropagation()">
+      <img id="lightboxImg" src="" alt="Full view" class="max-w-full max-h-[72vh] rounded-lg shadow-2xl object-contain border border-pink-500/30">
+      <p id="lightboxCaption" class="text-pink-200 font-semibold text-center mt-3 text-sm sm:text-base"></p>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    /* ==========================================================================
+       1. LIVE PRECISE ANNIVERSARY COUNTER
+       Target: 23.12.2025 at 8:50 PM (2025-12-23T20:50:00+06:30)
+       ========================================================================== */
+    const START_DATE = new Date('2025-12-23T20:50:00+06:30');
+
+    function updateLiveCounter() {
+      const now = new Date();
+      let diff = now - START_DATE;
+
+      const absDiff = Math.abs(diff);
+
+      const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((absDiff / 1000 / 60) % 60);
+      const seconds = Math.floor((absDiff / 1000) % 60);
+
+      document.getElementById('daysCount').innerText = days.toLocaleString();
+      document.getElementById('hoursCount').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutesCount').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('secondsCount').innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateLiveCounter, 1000);
+    updateLiveCounter();
+
+    /* ==========================================================================
+       2. ROMANTIC PARTICLES & HEARTS CANVAS
+       ========================================================================== */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + Math.random() * 50;
+        this.size = Math.random() * 12 + 6;
+        this.speedY = Math.random() * 0.9 + 0.4;
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.isHeart = Math.random() > 0.45;
+        this.color = Math.random() > 0.3 ? '#ff4d6d' : '#ff758f';
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -30) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+
+        if (this.isHeart) {
+          const x = this.x;
+          const y = this.y;
+          const s = this.size;
+          ctx.beginPath();
+          ctx.moveTo(x, y + s / 4);
+          ctx.quadraticCurveTo(x, y, x + s / 4, y);
+          ctx.quadraticCurveTo(x + s / 2, y, x + s / 2, y + s / 4);
+          ctx.quadraticCurveTo(x + s / 2, y, x + (3 * s) / 4, y);
+          ctx.quadraticCurveTo(x + s, y, x + s, y + s / 4);
+          ctx.quadraticCurveTo(x + s, y + s / 2, x + (3 * s) / 4, y + (3 * s) / 4);
+          ctx.lineTo(x + s / 2, y + s);
+          ctx.lineTo(x + s / 4, y + (3 * s) / 4);
+          ctx.quadraticCurveTo(x, y + s / 2, x, y + s / 4);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size / 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    const particleCount = window.innerWidth < 640 ? 30 : 60;
+    for (let i = 0; i < particleCount; i++) {
+      const p = new Particle();
+      p.y = Math.random() * height;
+      particles.push(p);
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* ==========================================================================
+       3. INTERACTIVE LOVE LETTER MODAL LOGIC
+       ========================================================================== */
+    const modal = document.getElementById('letterModal');
+    const modalContent = document.getElementById('letterModalContent');
+
+    function openLoveLetter() {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+      
+      confetti({
+        particleCount: 80,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#ff4d6d', '#ff758f', '#ffb3c1', '#ffffff']
+      });
+    }
+
+    function closeLoveLetter() {
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeLoveLetter();
+      }
+    });
+
+    /* ==========================================================================
+       4. LIGHTBOX MODAL LOGIC FOR POLAROID PHOTOS
+       ========================================================================== */
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.innerText = caption;
+      lightboxModal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    /* ==========================================================================
+       5. CLICK TO REVEAL LOVE REASON
+       ========================================================================== */
+    function toggleReason(card) {
+      const p = card.querySelector('.reason-body');
+      if (p) {
+        if (p.classList.contains('blur-sm')) {
+          p.classList.remove('blur-sm');
+          const rect = card.getBoundingClientRect();
+          confetti({
+            particleCount: 20,
+            spread: 45,
+            origin: {
+              x: (rect.left + rect.width / 2) / window.innerWidth,
+              y: (rect.top + rect.height / 2) / window.innerHeight
+            },
+            colors: ['#ff4d6d', '#ff85a1']
+          });
+        } else {
+          p.classList.add('blur-sm');
+        }
+      }
+    }
+
+    /* ==========================================================================
+       6. CELEBRATION EFFECT
+       ========================================================================== */
+    function triggerLoveCelebration() {
+      confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: { y: 0.7 },
+        colors: ['#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd']
+      });
+      playTone(523.25, 0.4);
+      setTimeout(() => playTone(659.25, 0.5), 150);
+      setTimeout(() => playTone(783.99, 0.7), 300);
+    }
+
+    /* ==========================================================================
+       7. EMBEDDED ROMANTIC LO-FI SYNTH MELODY (Web Audio API)
+       ========================================================================== */
+    let audioCtx = null;
+    let isPlayingAudio = false;
+    let melodyInterval = null;
+
+    const melodyNotes = [
+      261.63, 329.63, 392.00, 523.25, // C
+      220.00, 261.63, 329.63, 440.00, // Am
+      174.61, 220.00, 261.63, 349.23, // F
+      196.00, 246.94, 293.66, 392.00  // G
+    ];
+    let noteStep = 0;
+
+    function playTone(freq, duration = 0.8) {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function toggleAudioMelody() {
+      if (!isPlayingAudio) {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        isPlayingAudio = true;
+        document.getElementById('musicIcon').setAttribute('data-lucide', 'volume-2');
+        document.getElementById('musicText').innerText = "Melody Playing";
+        lucide.createIcons();
+
+        melodyInterval = setInterval(() => {
+          const freq = melodyNotes[noteStep % melodyNotes.length];
+          playTone(freq, 1.2);
+          noteStep++;
+        }, 700);
+
+      } else {
+        isPlayingAudio = false;
+        clearInterval(melodyInterval);
+        document.getElementById('musicIcon').setAttribute('data-lucide', 'volume-x');
+        document.getElementById('musicText').innerText = "Play Melody";
+        lucide.createIcons();
+      }
+    }
+  </script>
+</body>
+</html>
